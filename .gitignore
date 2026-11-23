@@ -1,0 +1,8 @@
+# Zuschauer-Fotos bleiben lokal
+hot/
+
+# System
+.DS_Store
+Thumbs.db
+desktop.ini
+node_modules/
