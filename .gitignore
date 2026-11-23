@@ -1,5 +1,11 @@
 # Zuschauer-Fotos bleiben lokal
 hot/
+# Eigene Bilder für Plakatwände/Videowand bleiben lokal (nur die Anleitung kommt ins Repo)
+bilder/
+bilder1/
+bilder3/
+bilder2/*
+!bilder2/LIES-MICH.txt
 
 # System
 .DS_Store

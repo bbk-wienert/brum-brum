@@ -8,7 +8,7 @@ const crypto = require('crypto');
 
 const PORT = Number(process.argv[2]) || 8080;
 const ROOT = __dirname;
-const TYPES = { '.html':'text/html; charset=utf-8', '.js':'text/javascript', '.css':'text/css', '.json':'application/json', '.png':'image/png', '.jpg':'image/jpeg', '.svg':'image/svg+xml', '.mp3':'audio/mpeg', '.wav':'audio/wav', '.ico':'image/x-icon' };
+const TYPES = { '.html':'text/html; charset=utf-8', '.js':'text/javascript', '.css':'text/css', '.json':'application/json', '.png':'image/png', '.jpg':'image/jpeg', '.jpeg':'image/jpeg', '.webp':'image/webp', '.gif':'image/gif', '.svg':'image/svg+xml', '.mp3':'audio/mpeg', '.wav':'audio/wav', '.ico':'image/x-icon' };
 
 function lanIPs(){
   const ips = [];
@@ -21,8 +21,9 @@ function lanIPs(){
 const server = http.createServer((req, res) => {
   let p;
   try { p = decodeURIComponent(req.url.split('?')[0]); } catch { res.writeHead(400); return res.end(); }
-  if (p === '/api/hot') { // Liste der Zuschauer-Bilder im Ordner "hot"
-    fs.readdir(path.join(ROOT, 'hot'), (err, files) => {
+  // Bilderlisten: bilder1 (Zuschauer), bilder2 (Plakatwände, Videowand), bilder3 (überall, mit Taste B)
+  if (p === '/api/bilder1' || p === '/api/bilder2' || p === '/api/bilder3') {
+    fs.readdir(path.join(ROOT, p.slice(5)), (err, files) => {
       const list = err ? [] : files.filter(f => /\.(jpe?g|png|webp|gif)$/i.test(f)).sort();
       res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
       res.end(JSON.stringify(list));
